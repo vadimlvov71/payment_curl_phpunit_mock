@@ -49,11 +49,13 @@ class Helper
         return $rows;
         
     }
-    public static function getCurrenciesList(string $url, string $random_user_agent)
+    public static function getCurrenciesList(string $url, string $exchange_url_type, string $random_user_agent)
     {
+        
         $rows_as_json = Curl::getApiUrl($url, $random_user_agent);
         $rows = @json_decode($rows_as_json["content"], true);
-        return $rows["rates"]['country']['alpha2'];
+
+        return $rows = self::getFormattedData($rows, $exchange_url_type);
     }
     /**
      * @param array $rows
@@ -61,13 +63,14 @@ class Helper
      * 
      * @return string
      */
-    public static function getFormattedData(array $rows, string $bin_url_type): string
-    {
-        $return_value = match ($bin_url_type) {
+    public static function getFormattedData(array $rows, string $type)
+    {       
+        $return_value = match ($type) {
             'bin_source1' => $rows['country']['alpha2'],
             'bin_source2' => $rows["rates"]['country']['alpha2'],
-            'bin_source3' => 'TO DO: another api response type',
+            'exchange_source1' => $rows["rates"],
         };
         return $return_value;
     }
+        
 }

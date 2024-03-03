@@ -7,13 +7,16 @@ require __DIR__ . '/vendor/autoload.php';
 
 
 $app = new AppController(
-            FILE_WITH_DATA, 
-            COUNTRIES_CURRENCY_LIST, 
-            CURRENCY_URL,
-            EXCHANGE_RATE_URL,
-            BIN_URL_TYPE,
-            EXCHANGE_URL_TYPE
-        );
+    FILE_WITH_DATA, 
+    CONST_COUNTRIES_CURRENCY_LIST, 
+    CURRENCY_URL,
+    EXCHANGE_RATE_URL,
+    BIN_URL_TYPE,
+    EXCHANGE_URL_TYPE,
+    EURO_CURRENCY,
+    COMMISSION_RATE_EURO_ZONE,
+    COMMISSION_RATE_NO_EURO_ZONE
+);
 $rows = $app->index();
 echo "<pre>";
 print_r($rows);
