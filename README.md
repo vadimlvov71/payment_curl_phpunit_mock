@@ -1,26 +1,20 @@
-#####  Calculate commissions for already made transactions;
+###  Calculate commissions for already made transactions;
 ##### About The Project 
-* app.php as entry point
-* /homework/src/Controller/AppController.php
-* 
+* from file: transactions/transactions.txt
+* the data were handled in /src/Controller/AppController.php
+* file comfig/env.php has config constants for the project settings: api links, commission rates etc.
 * PSR 12 standart, except warning: length more than 120 charactrers
 
-
 ##### Built With
-
 *  php8.2
 *  phpunit
-*  enum
+*  enum - for a list of user agents
 *  match
-
-<!-- GETTING STARTED -->
-##### Getting Started
 
 ##### Prerequisites
 * php 8.2
 
 ##### Installation
-
 1. Clone the repo
    ```sh
    git clone git@github.com:vadimlvov71/payment_curl_phpunit_mock.git
@@ -29,3 +23,6 @@
   ```sh
   composer install
   ```
+<!-- GETTING STARTED -->
+##### Getting Started
+* app.php as entry point run "php app.php"
