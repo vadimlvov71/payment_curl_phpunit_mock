@@ -25,4 +25,4 @@
   ```
 <!-- GETTING STARTED -->
 ##### Getting Started
-* app.php as entry point run "php app.php"
+* app.php as entry point run "php app.php input.txt"
