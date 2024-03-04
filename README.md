@@ -26,3 +26,6 @@
 <!-- GETTING STARTED -->
 ##### Getting Started
 * app.php as entry point run "php app.php input.txt"
+##### Error
+* when request to https://lookup.binlist.net/"
+*  error 429 too much request:  
