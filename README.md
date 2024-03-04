@@ -2,7 +2,7 @@
 ##### About The Project 
 * from file: transactions/transactions.txt
 * the data were handled in /src/Controller/AppController.php
-* file comfig/env.php has config constants for the project settings: api links, commission rates etc.
+* file comfig/env.php has config constants for the project settings: api links, paths to files, commission rates etc.
 * PSR 12 standart, except warning: length more than 120 charactrers
 
 ##### Built With
