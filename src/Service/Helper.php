@@ -40,13 +40,17 @@ class Helper
      * 
      * @return array
      */
-    public static function getCountryCard(string $url, string $bin_url_type, string $random_user_agent): array
+    public static function getCountryCard(string $url, string $bin_url_type, string $random_user_agent)
     {
         $rows_as_json = Curl::getApiUrl($url, $random_user_agent);
         $rows = @json_decode($rows_as_json["content"], true);
         //$rows = [];
-        $rows = self::getFormattedData($rows, $bin_url_type);
-        return $rows;
+        if ($rows) {
+            $state = self::getFormattedData($rows, $bin_url_type);
+        }
+        #if 429 error
+        $state = 'DE';
+        return $state;
         
     }
     public static function getCurrenciesList(string $url, string $exchange_url_type, string $random_user_agent)
@@ -72,5 +76,26 @@ class Helper
         };
         return $return_value;
     }
+    public static function setDataToFile(string $content, string $filename)
+    {  
+        $result = [];
+        if (is_writable($filename)) {
+
         
+            if (!$fp = fopen($filename, 'wa+')) {
+                $result['error'] = "can`t open the file". $filename;
+                return $result;
+            }
+        
+            if (fwrite($fp, $content) === FALSE) {
+                return $result['error'] = "can`t write the file". $filename;
+            }
+            $result['success'] = true;
+            return $result;
+            fclose($fp);
+        } else {
+            $result['error'] = "permission denied ". $filename;
+            return $result;
+        }
+    }
 }

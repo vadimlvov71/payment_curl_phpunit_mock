@@ -15,7 +15,8 @@ $app = new AppController(
     EXCHANGE_URL_TYPE,
     EURO_CURRENCY,
     COMMISSION_RATE_EURO_ZONE,
-    COMMISSION_RATE_NO_EURO_ZONE
+    COMMISSION_RATE_NO_EURO_ZONE,
+    FILE_TO_COMMISSION
 );
 $rows = $app->index();
 echo "<pre>";
