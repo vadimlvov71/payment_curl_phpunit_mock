@@ -42,7 +42,7 @@ class AppController
     public function index()
     {
         $result["error"] = "error: ";
-        $commission = "";
+        $commission_string = "";
 
         $random_user_agent = UserAgents::randomValue();
 
@@ -64,16 +64,17 @@ class AppController
                 if (empty($row->bin)) {
                     $result["error"] .= "bin is empty";
                 } else {
-                    $result["bin"][] = $row->bin;
+                    //$result["bin"][] = $row->bin;
                     $url = $this->_currency_url . $row->bin;
                     $currency_state_name = Helper::getCountryCard($url, $this->_bin_url_type, $random_user_agent);
-
-                    $commission .= $calculation->getCommissionByZone($row, $currency_state_name);
-                   // sleep(2);
+                    $commission = $calculation->getCommissionByZone($row, $currency_state_name);
+                    $commission_string .= $commission;
+                    $result["commission"][] = $commission;
+                    // sleep(2);
                 }
             }
         }
-        $result["file_input_data"] = Helper::setDataToFile($commission, $this->_file_to_commission_result);
+        $result["file_input_data"] = Helper::setDataToFile($commission_string, $this->_file_to_commission_result);
         //
         return $result;
         
