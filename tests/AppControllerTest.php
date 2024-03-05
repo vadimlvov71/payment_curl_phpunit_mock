@@ -9,61 +9,75 @@ use App\Service\Helper;
 
 class AppControllerTest extends TestCase
 {
+    
+
     public function testindex()
     {
-       /* $expected = [
-            [0] => stdClass
-                (
-                    ['bin'] => 45717360
-                    ['amount'] => 100.00
-                    ['currency'] => EUR
-                )
+        require_once  './config/env.php';
 
-            [1] => stdClass Object
-                (
-                    ['bin'] => 516793
-                    ['amount'] => 50.00
-                    ['currency'] => USD
-                )
-
-            [2] => stdClass Object
-                (
-                    ['bin'] => 45417360
-                    ['amount'] => 10000.00
-                    ['currency'] => JPY
-                )
-
-            [3] => stdClass Object
-                (
-                    ['bin'] => 41417360
-                    ['amount'] => 130.00
-                    ['currency'] => USD
-                )
-
-            [4] => stdClass Object
-                (
-                    ['bin'] => 4745030
-                    ['amount'] => 2000.00
-                    ['currency'] => GBP
-                )
-        ];*/
+        $file_with_data = "./". FILE_WITH_DATA;
+        $file_to_commission_result = "./".FILE_TO_COMMISSION;
+        echo "file_with_data".$file_with_data . PHP_EOL;
+        $expected = [];
+        $expected[] = null;
+            $obj = new stdClass();
+                $obj->bin = 45717360;
+                $obj->amount = 100.00;
+                $obj->currency = "EUR";
+        $expected[] = $obj;
+            $obj = new stdClass();
+                $obj->bin = 516793;
+                $obj->amount = 50.00;
+                $obj->currency = "USD";
+        $expected[] = $obj;
+            $obj = new stdClass();
+                $obj->bin = 45417360;
+                $obj->amount = 10000.00;
+                $obj->currency = "JPY";
+        $expected[] = $obj; 
+            $obj = new stdClass();
+                $obj->bin = 41417360;
+                $obj->amount = 130.00;
+                $obj->currency = "USD";
+        $expected[] = $obj;         
+            $obj = new stdClass();
+                $obj->bin = 4745030;
+                $obj->amount = 2000.00;
+                $obj->currency = "GBP";
+        $expected[] = $obj;
        
         $mock = $this->createMock(AppController::class);
         $this->assertInstanceOf(AppController::class, $mock);
 
-        $mock = $this->createMock(Helper::class);
-        $mock->method('getArrayOfObject')
-        ->willReturn([]);
-        $mock->assertArrayHasKey("bin");
-        //$this->assertSame(Helper::getArrayOfObject(), $expected);
+       
 
         $mock = $this->createMock(CommissionCalculation::class);
         $this->assertInstanceOf(CommissionCalculation::class, $mock);
         
-        /*$service = Mockery::mock('rows_from_file');
-        $service->shouldReceive('readTemp')
-            ->times(3)
-            ->andReturn(10, 12, 14);*/
+        $init_data = Helper::getArrayOfObject($file_with_data);
+        echo "<pre>";
+        print_r($init_data);
+        echo "</pre>";
+        $this->assertIsArray($init_data);
+        $this->assertArrayHasKey('bin',  $init_data[0]->property);
+        $commission = "blabla";
+       // Helper::setDataToFile($commission, $this->_file_to_commission_result);
+      //
+       //$mock = $this->createMock(Helper::class);
+      // $mock->method('getArrayOfObject')
+       //->willReturn([]);
+       //->will([]);
+       //$mock->assertArrayHasKey("bin");
+       //$this->assertSame(Helper::getArrayOfObject($file_with_data), $expected);
+       //$mock = $this->createMock(Helper::class);
+       //$mock->method('getArrayOfObject')
+       //$mock->shouldReceive('getArrayOfObject')->once()->with(new HasKeysMatcher(array('bin','file_input_data'),5));
+       $result = Helper::setDataToFile($commission, $file_to_commission_result);
+       echo "<pre>";
+       print_r($result);
+       echo "</pre>";
+       $this->assertArrayHasKey('success',  $result);
+       
     }
     
     
