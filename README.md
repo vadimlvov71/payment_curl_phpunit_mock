@@ -3,7 +3,11 @@
 * from file: transactions/transactions.txt
 * the data were handled in /src/Controller/AppController.php
 * file comfig/env.php has config constants for the project settings: api links, paths to files, commission rates etc.
-* PSR 12 standart, except warning: length more than 120 charactrers
+* PSR 12 standart,
+* /src/Controller/AppController.php
+* /src/Service/CommissionCalculation.php
+![изображение](https://github.com/vadimlvov71/payment_curl_phpunit_mock/assets/57807117/fd6a98be-8182-4ba3-85fc-4330e8df1991)
+
 
 ##### Built With
 *  php8.1
