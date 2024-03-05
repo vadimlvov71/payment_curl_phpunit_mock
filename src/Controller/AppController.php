@@ -10,8 +10,6 @@ use App\Entity\UserAgents;
 
 class AppController
 {
-   
-
     public function __construct(
         # use new php8 feature:
         private string $file_with_data, 
@@ -47,7 +45,7 @@ class AppController
         $commission = "";
 
         $random_user_agent = UserAgents::randomValue();
-        //$rows_currencies = [];
+
         $exchange_rate = Helper::getCurrenciesList($this->_exchange_rate_url, $this->_exchange_url_type, $random_user_agent);
         $calculation = new CommissionCalculation(
             $this->_const_currency_list, 
@@ -57,16 +55,8 @@ class AppController
             $exchange_rate
         );
         
-   
         $rows_from_file = Helper::getArrayOfObject($this->_file_with_data);
         
-        //exit;
-        echo "<pre>";
-        print_r($rows_from_file);
-        echo "</pre>"; 
-       
-        
-       //exit;
         if (empty($rows_from_file)) {
             $result["error"] .= "file is empty";
         } else {
@@ -74,30 +64,19 @@ class AppController
                 if (empty($row->bin)) {
                     $result["error"] .= "bin is empty";
                 } else {
-                    $url = $this->_currency_url . "45717360";
-                    $currency_state_name = Helper::getCountryCard($url, $this->_bin_url_type, $random_user_agent);
-                    /*echo "<pre>";
-                    print_r($rows_currencies);
-                    echo "</pre>";*/
-                    $commission .= $calculation->getCommissionByZone($row, $currency_state_name);
-          
-                    echo "commission:: ".$commission."<br>";
+                    $result["bin"][] = $row->bin;
                     $url = $this->_currency_url . $row->bin;
-                   echo "row->bin:: ".$row->bin."<br>";
-                    //echo "amount:: ".$row->amount."<br>";
-                    //echo "currency:: ".$row->currency."<br>";
-                   //$rows_currencies[] = Helper::getCountryCard($url, $random_user_agent);
+                    $currency_state_name = Helper::getCountryCard($url, $this->_bin_url_type, $random_user_agent);
+
+                    $commission .= $calculation->getCommissionByZone($row, $currency_state_name);
                    // sleep(2);
                 }
             }
         }
-        $result["file"] = Helper::setDataToFile($commission, $this->_file_to_commission_result);
+        $result["file_input_data"] = Helper::setDataToFile($commission, $this->_file_to_commission_result);
         //
+        return $result;
         
-        echo "<pre>";
-        print_r($result);
-        echo "</pre>";        
-        //return $rows_as_json;
     }
     
 }

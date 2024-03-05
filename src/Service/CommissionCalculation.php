@@ -26,9 +26,7 @@ class CommissionCalculation
     public function getCommissionByZone(object $row, string $currency_state_name)
     {
         $commission = 0;
-        //echo "case 111::::".$row->currency."<br>";
         $is_euro_bank_card = Helper::isEuroBankCardEmitted($currency_state_name, $this->_const_currency_list); 
-        echo "is_euro_bank_card::::".$is_euro_bank_card."<br>";
         $is_euro_bank_card = true;
        // echo "is_euro_bank_card:: ".$is_euro_bank_card;
         #case euro currency and an euro bank card
@@ -36,27 +34,22 @@ class CommissionCalculation
         #case no euro currency and an euro bank card
         #case no euro and no euro bank card
         if($row->currency == $this->_euro_currency && $is_euro_bank_card === true){
-            echo "case 111::::".$this->_commission_rate_euro_zone."<br>";
             $commission = $row->amount * $this->_commission_rate_euro_zone;
         } elseif ($row->currency == $this->_euro_currency && $is_euro_bank_card === false) {
-            //echo "case 222::: ".$row->currency."<br>";
+            //TO DO
         } elseif ($row->currency != $this->_euro_currency && $is_euro_bank_card === true) {
             $euro_currency_from_exchange = $this->euroCurrencyFromExchange($row); 
             $commission = $euro_currency_from_exchange * $this->_commission_rate_no_euro_zone;
-            echo "case 333::: ".$row->currency."<br>";
         } else {
-            //echo "case 444::: ".$row->currency."<br>";
+            //TO DO
         }
-        //echo "commission::: ".$commission."<br>";
         $english_format_number = number_format($commission, 2, '.', '') . PHP_EOL;
        return $english_format_number;
     }
     public function euroCurrencyFromExchange($row){
-        //echo "currency".$row->currency."<br>";
-      // echo "amount".$row->amount."<br>";
+
         $rate = $this->_exchange_rate[$row->currency];
         $euro_value = $row->amount / $rate;
-        //echo "euro_value:: ".$euro_value."<br>";
         return   $euro_value;
 
     }
