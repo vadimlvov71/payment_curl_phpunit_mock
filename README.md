@@ -6,13 +6,13 @@
 * PSR 12 standart, except warning: length more than 120 charactrers
 
 ##### Built With
-*  php8.2
+*  php8.1
 *  phpunit
 *  enum - for a list of user agents
 *  match
 
 ##### Prerequisites
-* php 8.2
+* php 8.1
 
 ##### Installation
 1. Clone the repo
@@ -29,3 +29,5 @@
 ##### Error
 * when request to https://lookup.binlist.net/"
 *  error 429 too much request:  
+##### phpUnt tests with mock
+* root@90e05af0282b:/var/www/homework# vendor/bin/phpunit tests
